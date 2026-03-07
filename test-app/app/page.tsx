@@ -23,6 +23,7 @@ const Parent = () => {
 
   return (
     <div>
+      <Child value={fibonacciValue} />
       <button onClick={increment}>Increment {count}</button>
     </div>
   )
