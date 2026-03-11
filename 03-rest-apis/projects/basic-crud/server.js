@@ -7,8 +7,21 @@ app.use(express.json()) // middleware
 const users = [];
 
 app.get('/users', (req, res) => {
-    res.status(200);
-    res.json(users)
+    if (!req.query.name) {
+        res.status(200);
+        res.json(users);
+    } else {
+        const filtered_users = users.filter(user => user.name === req.query.name)
+
+        if (filtered_users.length === 0) {
+            res.status(404)
+            res.json({ status: 404, message: `User with a name ${req.query.name} is not found.` })
+            return;
+        }
+
+        res.status(200)
+        res.json(filtered_users)
+    }
 })
 
 app.get('/users/:id', (req, res) => {
@@ -53,13 +66,13 @@ app.delete('/users/:id', (req, res) => {
 
     if (user_found === -1) {
         res.status(404)
-        res.json({status: 404, message: "User not found."})
+        res.json({ status: 404, message: "User not found." })
         return;
     }
-    
+
     users.splice(user_found, 1);
     res.status(200)
-    res.json({status: 200, message: "User deleted."})
+    res.json({ status: 200, message: "User deleted." })
 })
 
 
