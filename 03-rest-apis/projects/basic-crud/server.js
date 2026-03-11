@@ -9,7 +9,7 @@ const users = [];
 app.get('/users', (req, res) => {
     if (!req.query.name) {
         res.status(200);
-        res.json(users);
+        res.json(users) // returns all users
     } else {
         const filtered_users = users.filter(user => user.name === req.query.name)
 
