@@ -49,19 +49,17 @@ app.put('/users/:id', (req, res) => {
 
 app.delete('/users/:id', (req, res) => {
     const id = req.params.id;
-    const user_found = users.find(user => user.id === parseInt(id))
+    const user_found = users.findIndex(user => user.id === parseInt(id))
 
-    if (!user_found) {
+    if (user_found === -1) {
         res.status(404)
         res.json({status: 404, message: "User not found."})
         return;
     }
     
-    // find index of the found user
-    const user_index = users.findIndex(user => user.id === parseInt(id))
-    users.splice(user_index, 1);
+    users.splice(user_found, 1);
     res.status(200)
-    res.json({status: 200, message: "User Deleted."})
+    res.json({status: 200, message: "User deleted."})
 })
 
 
