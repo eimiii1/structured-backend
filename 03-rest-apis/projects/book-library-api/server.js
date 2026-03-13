@@ -18,7 +18,8 @@ const validateBook = (req, res, next) => {
 }
 
 const errorHandler = (err, req, res, next) => {
-    res.status(err.status).json({status: err.status, message: err.message})
+    const status = err.status || 500
+    res.status(status).json({status, message: err.message})
 }
 
 app.post('/books', validateBook, (req, res) => {
@@ -41,8 +42,7 @@ app.get('/books', (req, res) => {
 app.get('/books/:id', (req, res, next) => {
     const book = books.find(b => parseInt(req.params.id) === b.id)
     if (!book) {
-        res.status(404)
-        return next({status: 'bad', message: "Book couldn't be found."})
+        return next({status: 404, message: "Book couldn't be found."})
     }
 
     res.status(200)
@@ -53,8 +53,7 @@ app.put('/books/:id', validateBook, (req, res, next) => {
     const book = books.find(b => parseInt(req.params.id) === b.id)
 
     if (!book) {
-        res.status(404)
-        return next({status: 'bad', message: "Book couldn't be found."})
+        return next({status: 404, message: "Book couldn't be found."})
     }
 
     Object.assign(book, req.body)
@@ -70,8 +69,7 @@ app.delete('/books/:id', (req, res, next) => {
     const bookIndex = books.findIndex(b => parseInt(req.params.id) === b.id)
 
     if (bookIndex === -1) {
-        res.status(400)
-        return next({status: 'bad', message: "Book couldn't be found."})
+        return next({status: 404, message: "Book couldn't be found."})
     }
 
     books.splice(bookIndex, 1)
