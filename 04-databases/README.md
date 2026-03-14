@@ -44,6 +44,22 @@ A REST API for managing student records connected to MongoDB Atlas.
 
 **Student schema:** `name`, `age`, `address`, `gender`, `phone`, `emailAddress` (all required)
 
+### 3. Task Manager API
+
+A REST API for managing tasks collection for each user connected to MongoDB Atlas.
+
+**Endpoints:**
+
+| Method | Route          | Description                              |
+| ------ | -------------- | ---------------------------------------- |
+| POST   | /users         | Create a user                            |
+| POST   | /tasks         | Create a task (body must include userId) |
+| GET    | /tasks?userId= | Get all tasks for a user                 |
+| PUT    | /tasks/:id     | Update a task                            |
+| DELETE | /tasks/:id     | Delete a task                            |
+
+**User Schema:** `name`, `email` (both required)
+**Task Schema:** `title`, `description`, `status`, `dueDate`, `userId` (status has `default: 'pending'` and `userId` is not required)
 ## Setup
 
 ```bash
