@@ -13,7 +13,7 @@ await client.connect()
 
 ## Core Commands
 - `client.get(key)` - retrieve value (return null if not found)
-- `client.set(key, value, ttl)` - store with expiration
+- `client.setEx(key, ttl, value)` - store with expiration
 - `client.del(key)` - delete/invalidate cache which also known as **Cache Invalidation**
 
 ## Important
