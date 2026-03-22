@@ -34,7 +34,7 @@ app.get('/products', async (req, res) => {
 
 app.post('/products', async (req, res) => {
     const newProduct = req.body
-    products.push({id: products.length + 1, ...newProduct})
+    products.push({ id: products.length + 1, ...newProduct })
 
     await client.del('products')
     res.status(201).json({
@@ -66,7 +66,7 @@ app.delete('/products/:id', async (req, res) => {
         status: 404,
         message: 'Product not found.'
     })
-        
+
     await client.del('products')
     products.splice(product, 1)
     res.status(201).json({
@@ -76,5 +76,5 @@ app.delete('/products/:id', async (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log(`Server running at http://localhost:${3000}`)
+    console.log(`http://localhost:${3000}`)
 })
