@@ -4,6 +4,9 @@ import './database.js'
 import authRoute from './routes/users/auth.js'
 import postRoute from './routes/posts/post.js'
 import timelineRoute from "./routes/posts/timeline.js"
+import singlePostRoute from "./routes/posts/single_post.js"
+import commentRoute from "./routes/posts/comments.js"
+import newCommentRoute from './routes/posts/newComment.js'
 
 const app = express()
 const port = 3000
@@ -14,6 +17,9 @@ app.use(cors())
 app.use('/users', authRoute)
 app.use(`/user`, postRoute)
 app.use('/', timelineRoute)
+app.use('/', singlePostRoute)
+app.use('/', commentRoute)
+app.use('/user', newCommentRoute)
 
 
 app.listen(3000, () => {

@@ -1,10 +1,12 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Timeline = () => {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
 
+    const navigate = useNavigate()
+    
     useEffect(() => {
         const fetchdata = async () => {
             try {
@@ -34,22 +36,30 @@ const Timeline = () => {
 
     return (
         <div
-        className="h-screen w-screen gap-20 flex justify-center items-center p-20"
+        className="gap-20 flex justify-center items-center p-20 flex-col"
         >
+            <h1
+            className="text-4xl"
+            >Timeline</h1>
             {Object.keys(data.posts).map((key, i) => {
-                const { title, content } = data.posts[key]
+                const { title, content, _id } = data.posts[key]
                 return (
                     <div 
                     className="border flex flex-col w-[50em]"
                     key={i}
                     >
-                        <span
-                        className="text-xl p-2"
-                        >{title}</span>
-                        <hr />
-                        <span
-                        className="p-2"
-                        >{content}</span>
+                        <div className="flex flex-col w-[50em]">
+                            <span
+                            className="text-xl p-2 font-bold"
+                            >{title}</span>
+                            <span
+                            className="p-2 h-50"
+                            >{content}</span>
+                        </div>
+                        <button
+                        className="border p-2 m-3 rounded-full w-30 hover:bg-black hover:text-white"
+                        onClick={() => navigate(`/timeline/post/${_id}`)}
+                        >View Post</button>
                     </div>
                 )
             })}
